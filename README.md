@@ -2,6 +2,7 @@
 
 ## 项目list
 - [x] 简单爬虫 [点此前往](/http)
+- [x] 课题【15分钟写一个工作进程池】 [点此前往](/workPool)
 - [ ] 数据结构 [点此前往](/dataStructure/binaryTree)  进行中
 - [ ] 排序算法 [点此前往](/studySort)  进行中
 - [ ] fastcgi学习 [点此前往](/fastCgiStudy)  进行中
