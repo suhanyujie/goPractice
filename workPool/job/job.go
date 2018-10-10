@@ -1,10 +1,10 @@
 package job
 
 import (
-	"math/rand"
 	"hash/fnv"
 	"time"
 	"fmt"
+	"math/rand"
 )
 
 /**
@@ -25,7 +25,11 @@ func DoWork(word string,id int) {
 	}
 }
 
-//创建工作列表
+/**
+创建工作列表
+RandStringRunes(8) 模拟的是一些工作，比如http请求，接口请求 mysql查询等等
+
+ */
 func CreateJobs(amount int) []string {
 	var jobs []string
 	for i:=0;i<amount ;i++  {
