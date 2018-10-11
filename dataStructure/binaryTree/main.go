@@ -23,11 +23,10 @@ func TestAvl() {
 		tree = avlBinaryTree.InsertNode(data,tree)
 		tree.PrevTraverse()
 	}
-
-	//avlBinaryTree.InsertNode(36,tree)
-	//avlBinaryTree.InsertNode(27,tree)
-
-	//tree.ToString()
+	//赋值指针
+	tree = avlBinaryTree.InsertNode(36,tree)
+	tree = avlBinaryTree.InsertNode(27,tree)
+	tree.PrevTraverse()
 }
 
 func TestBinaryTree() {
