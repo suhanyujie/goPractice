@@ -16,16 +16,16 @@ func main() {
 在加入节点5的时候 平衡遭到破坏 并且没有通过旋转得到解决
  */
 func TestAvl() {
-	var numArr []int = []int{1,2,3,4,5,6,7,8}
+	var numArr []int = []int{1, 2, 3, 4, 5, 6, 7, 8}
 	var tree *avlBinaryTree.TreeNode
 	tree = avlBinaryTree.CreateAvlTree(25, nil, nil)
-	for _,data := range numArr{
-		tree = avlBinaryTree.InsertNode(data,tree)
+	for _, data := range numArr {
+		tree = avlBinaryTree.InsertNode(data, tree)
 		tree.PrevTraverse()
 	}
 	//赋值指针
-	tree = avlBinaryTree.InsertNode(36,tree)
-	tree = avlBinaryTree.InsertNode(27,tree)
+	tree = avlBinaryTree.InsertNode(36, tree)
+	tree = avlBinaryTree.InsertNode(27, tree)
 	tree.PrevTraverse()
 }
 
