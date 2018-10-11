@@ -71,10 +71,10 @@ func InsertNode(val int, tree *TreeNode) *TreeNode {
 		if Height(tree.Right)-Height(tree.Left) >= 2 {
 			if val > tree.Right.Data.(int) {
 				originRoot = RRRotation(originRoot)
-				fmt.Println("发生了右右旋转")
+				fmt.Printf("发生了右右旋转，基于节点:%d\n", tree.Data.(int))
 			} else {
 				originRoot = RLRotation(originRoot)
-				fmt.Println("发生了右左旋转")
+				fmt.Printf("发生了右左旋转，基于节点:%d\n", tree.Data.(int))
 			}
 		}
 	} else if (val < tree.Data.(int)) {
@@ -82,10 +82,10 @@ func InsertNode(val int, tree *TreeNode) *TreeNode {
 		if Height(tree.Left)-Height(tree.Right) >= 2 {
 			if val > tree.Left.Data.(int) {
 				originRoot = LRRotation(originRoot)
-				fmt.Println("发生了左右旋转")
+				fmt.Printf("发生了左右旋转，基于节点:%d\n", tree.Data.(int))
 			} else {
 				originRoot = LLRotation(originRoot)
-				fmt.Println("发生了左左旋转")
+				fmt.Printf("发生了左左旋转，基于节点:%d\n", tree.Data.(int))
 			}
 		}
 	} else {
