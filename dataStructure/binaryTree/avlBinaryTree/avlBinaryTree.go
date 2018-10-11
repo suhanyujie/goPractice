@@ -219,6 +219,7 @@ func (_this *TreeNode) PrevTraverse() {
 	if _this.Right != nil {
 		ShowNode(_this.Right)
 	}
+	fmt.Printf("\n")
 }
 
 /**
