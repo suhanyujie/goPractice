@@ -69,7 +69,7 @@ func InsertNode(val int, tree *TreeNode) *TreeNode {
 		tree.Right = InsertNode(val, tree.Right)
 		//检查是否失衡
 		if Height(tree.Right)-Height(tree.Left) >= 2 {
-			if val < tree.Right.Data.(int) {
+			if val > tree.Right.Data.(int) {
 				originRoot = RRRotation(originRoot)
 				fmt.Println("发生了右右旋转")
 			} else {
