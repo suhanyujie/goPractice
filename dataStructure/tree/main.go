@@ -1,10 +1,10 @@
 package main
 
 import (
-	"practice/dataStructure/binaryTree/binarySearchTree"
+	"practice/dataStructure/tree/binarySearchTree"
 	"math/rand"
 	"fmt"
-	"practice/dataStructure/binaryTree/avlBinaryTree"
+	"practice/dataStructure/tree/avlBinaryTree"
 )
 
 // 入口函数
