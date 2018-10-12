@@ -1,5 +1,7 @@
 package redBlackTree
 
+import "fmt"
+
 /**
 ## 红黑树定义:
 	红黑树（Red Black Tree） 是一种自平衡二叉查找树，是在计算机科学中用到的一种数据结构，典型的用途是实现关联数组。
@@ -30,17 +32,38 @@ package redBlackTree
 红黑树的颜色
 */
 const (
-	Red=iota
+	Red = iota
 	Black
 )
 
 type RedBlackNode struct {
-	Data int
-	Color int
-	Left,Right RedBlackNode
+	Data        int
+	Color       int
+	Left, Right *RedBlackNode
 }
 
+//创建一个新树，返回该树的根节点
+func CreateTree() *RedBlackNode {
+	return new(RedBlackNode)
+}
 
+func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
+	if _this == nil {
+		return &RedBlackNode{
+			val,
+			0,
+			nil,
+			nil,
+		}
+	}
+	if val < _this.Data {
+		_this.Left = _this.Left.AddNode(val)
+	} else if val > _this.Data {
+		_this.Right = _this.Right.AddNode(val)
+	} else {
+		fmt.Println("已经存在相同值的节点！")
+		return nil
+	}
 
-
-
+	return _this
+}

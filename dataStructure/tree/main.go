@@ -5,11 +5,21 @@ import (
 	"math/rand"
 	"fmt"
 	"practice/dataStructure/tree/avlBinaryTree"
+	"practice/dataStructure/tree/redBlackTree"
 )
 
 // 入口函数
 func main() {
-	TestAvl()
+	TestRedBlackTree()
+}
+
+
+func TestRedBlackTree() {
+	var numArr = []int{21,24,19,230,41,96,58}
+	var tree *redBlackTree.RedBlackNode = redBlackTree.CreateTree()
+	for _,val := range numArr{
+		tree = tree.AddNode(val)
+	}
 }
 
 /**
