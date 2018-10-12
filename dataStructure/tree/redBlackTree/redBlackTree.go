@@ -47,6 +47,7 @@ func CreateTree() *RedBlackNode {
 	return new(RedBlackNode)
 }
 
+//新增节点
 func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
 	if _this == nil {
 		return &RedBlackNode{
@@ -66,4 +67,18 @@ func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
 	}
 
 	return _this
+}
+
+// todo
+func (_this *RedBlackNode) PrevTraverse()  {
+	if _this==nil {
+		return
+	}
+	fmt.Printf("%d\t",_this.Data)
+	_this.Left.PrevTraverse()
+	_this.Right.PrevTraverse()
+}
+
+func (_this *RedBlackNode) Print() {
+	_this.PrevTraverse()
 }

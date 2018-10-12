@@ -20,6 +20,7 @@ func TestRedBlackTree() {
 	for _,val := range numArr{
 		tree = tree.AddNode(val)
 	}
+	tree.Print()
 }
 
 /**
