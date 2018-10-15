@@ -52,7 +52,7 @@ func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
 	if _this == nil {
 		return &RedBlackNode{
 			val,
-			0,
+			Black,
 			nil,
 			nil,
 		}
@@ -69,7 +69,7 @@ func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
 	return _this
 }
 
-// todo
+// todo 前序遍历
 func (_this *RedBlackNode) PrevTraverse()  {
 	if _this==nil {
 		return

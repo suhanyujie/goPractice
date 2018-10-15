@@ -16,7 +16,7 @@ func main() {
 
 func TestRedBlackTree() {
 	var numArr = []int{21,24,19,230,41,96,58}
-	var tree *redBlackTree.RedBlackNode = redBlackTree.CreateTree()
+	var tree *redBlackTree.RedBlackNode
 	for _,val := range numArr{
 		tree = tree.AddNode(val)
 	}
