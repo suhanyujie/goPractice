@@ -15,11 +15,13 @@ func main() {
 
 
 func TestRedBlackTree() {
-	var numArr = []int{21,24,19,230,41,96,58}
+	// 21,24,19,230,41,96,58
+	var numArr = []int{21,19,17,18}
 	var tree *redBlackTree.RedBlackNode
 	for _,val := range numArr{
 		tree = tree.AddNode(val)
 	}
+	tree = tree.LLRotation()
 	tree.Print()
 }
 

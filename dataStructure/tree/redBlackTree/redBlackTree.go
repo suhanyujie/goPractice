@@ -21,6 +21,9 @@ import "fmt"
 * 主要是用它来存储有序的数据，它的时间复杂度是O(lgn)，效率非常之高。
 * 典型的用途是实现关联数组
 
+## 其他
+* 红黑树比AVL树优秀的地方之一在于黑父的情况比较常见，从而使红黑树需要旋转的几率相对AVL树来说会少一些。
+
 
 ## 参考资料
 * https://baike.baidu.com/item/%E7%BA%A2%E9%BB%91%E6%A0%91/2413209?fr=aladdin
@@ -67,6 +70,17 @@ func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
 	}
 
 	return _this
+}
+
+// todo 左侧旋转 LL型旋转
+func (_this *RedBlackNode) LLRotation()*RedBlackNode {
+	var lNode *RedBlackNode
+	lNode = _this.Left
+	//右节点可以为空
+	_this.Left = lNode.Right
+	lNode.Right = _this
+
+	return lNode;
 }
 
 // todo 前序遍历
