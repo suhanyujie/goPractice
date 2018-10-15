@@ -23,6 +23,7 @@ import "fmt"
 
 
 数据结构和算法目录：https://www.cnblogs.com/skywang12345/p/3603935.html
+* 有空可以另一位开发者的avl实现 https://github.com/Yawning/avl
  */
 
 type TreeNode struct {
