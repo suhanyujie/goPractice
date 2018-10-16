@@ -83,6 +83,16 @@ func (_this *RedBlackNode) LLRotation()*RedBlackNode {
 	return lNode;
 }
 
+// todo 右侧旋转 RR型旋转
+func (_this *RedBlackNode) RRRotation() *RedBlackNode {
+	var rNode *RedBlackNode
+	rNode = _this.Right
+	//根节点的左节点可以为空
+	_this.Right = rNode.Left
+	rNode.Left = _this
+	return rNode
+}
+
 // todo 前序遍历
 func (_this *RedBlackNode) PrevTraverse()  {
 	if _this==nil {
