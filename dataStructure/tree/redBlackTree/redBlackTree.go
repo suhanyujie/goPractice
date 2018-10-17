@@ -83,6 +83,20 @@ func (_this *RedBlackNode) LLRotation()*RedBlackNode {
 	return lNode;
 }
 
+// todo LR型旋转
+func (_this *RedBlackNode) LRRotation()*RedBlackNode  {
+	_this.Right = _this.Right.LLRotation()
+	_this.RRRotation()
+	return _this
+}
+
+// todo RL型旋转
+func (_this *RedBlackNode) RLRotation()*RedBlackNode  {
+	_this.Left = _this.Left.LLRotation()
+	_this.RRRotation()
+	return _this
+}
+
 // todo 右侧旋转 RR型旋转
 func (_this *RedBlackNode) RRRotation() *RedBlackNode {
 	var rNode *RedBlackNode
