@@ -5,15 +5,43 @@ import (
 	"log"
 	"fmt"
 	"bufio"
+	"os"
+	"strings"
 )
 
 // 入口函数
 func main() {
-     conn,err:=net.Dial("tcp","127.0.0.1:3130")
-	if err!=nil {
+	CrateConn2()
+}
+
+func CrateConn2() {
+	var addr = "127.0.0.1:3130"
+	//解析地址
+	tcpAddr, err := net.ResolveTCPAddr("tcp4", addr)
+	if err != nil {
 		log.Println(err)
 	}
-     fmt.Fprintf(conn,"GET / HTTP/1.0\r\n")
-     status,err:=bufio.NewReader(conn).ReadString('\n')
-     fmt.Println(status)
+	conn, err := net.DialTCP("tcp", nil, tcpAddr)
+	if err != nil {
+		log.Println(err)
+	}
+	reader := bufio.NewReader(os.Stdin)
+	fmt.Println("hello my client:")
+	defer conn.Close()
+	for {
+		fmt.Print(addr + "> ")
+		text,_ := reader.ReadString('\n')
+		text = strings.Replace(text,"\n","",-1)
+		fmt.Printf("u have input:%s ^^ \n",text)
+	}
+}
+
+func CreateConn1() {
+	conn, err := net.Dial("tcp", "127.0.0.1:3130")
+	if err != nil {
+		log.Println(err)
+	}
+	fmt.Fprintf(conn, "GET / HTTP/1.0\r\n")
+	status, err := bufio.NewReader(conn).ReadString('\n')
+	fmt.Println(status)
 }
