@@ -23,16 +23,19 @@ import "fmt"
 
 ## 其他
 * 红黑树比AVL树优秀的地方之一在于黑父的情况比较常见，从而使红黑树需要旋转的几率相对AVL树来说会少一些。
+* 红黑树节点的数据结构和avl有所差异，红黑树需要存储父节点
 
 
 ## 参考资料
 * https://baike.baidu.com/item/%E7%BA%A2%E9%BB%91%E6%A0%91/2413209?fr=aladdin
 * http://www.cnblogs.com/skywang12345/p/3245399.html
+* 思路清晰的描述 http://www.cnblogs.com/skywang12345/p/3624177.html
 
 */
 
 /**
 红黑树的颜色
+0红色，1黑色
 */
 const (
 	Red = iota
@@ -40,14 +43,17 @@ const (
 )
 
 type RedBlackNode struct {
-	Data        int
-	Color       int
-	Left, Right *RedBlackNode
+	Data        int//节点值
+	Color       int//节点颜色
+	Parent,Left, Right *RedBlackNode//节点的父节点、左孩子、右孩子
 }
+// 树的根节点
+var TreeRoot *RedBlackNode;
 
 //创建一个新树，返回该树的根节点
 func CreateTree() *RedBlackNode {
-	return new(RedBlackNode)
+	TreeRoot = new(RedBlackNode)
+	return TreeRoot
 }
 
 //新增节点
@@ -56,6 +62,7 @@ func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
 		return &RedBlackNode{
 			val,
 			Black,
+			nil,
 			nil,
 			nil,
 		}
