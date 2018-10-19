@@ -14,6 +14,14 @@ func main() {
 	CrateConn2()
 }
 
+/**
+1.将标准输入作为输入，将数据传入到程序当中
+
+
+
+
+
+ */
 func CrateConn2() {
 	var addr = "127.0.0.1:3130"
 	//解析地址

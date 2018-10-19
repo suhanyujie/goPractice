@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Websocket</title>
+    <script src="/staticfile/static/jquery.min.js"></script>
+</head>
+<body>
+<input type="text" class="msg-input"><button type="button" class="send-btn">发送</button>
+<button class="close-btn">关闭</button>
+
+<script>
+    $(function () {
+        var ws = new WebSocket('ws://127.0.0.1:3031/ws')
+        ws.onopen = function () {
+            ws.send("发送数据")
+            console.log("发送数据")
+        }
+        ws.onmessage = function (evt) {
+            var message = evt.data
+            console.log('接收到数据：'+message)
+        }
+        ws.onclose = function () {
+            alert('关闭websocket连接');
+        }
+        $('.send-btn').click(function () {
+            var message = $('.msg-input').val()
+            ws.send("发送数据:"+message)
+        });
+        $('.close-btn').click(function () {
+            ws.close(1000,'client close....')
+        });
+    });
+</script>
+</body>
+</html>
