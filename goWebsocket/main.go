@@ -14,6 +14,9 @@ import (
 1.实现一个http接口
 
 
+* 浏览器访问 `http://127.0.0.1:3031/index` 即可
+* 静态文件的访问方式 `http://127.0.0.1:3031/staticfile/static/jquery.min.js`
+
 
 */
 
