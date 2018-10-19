@@ -43,10 +43,11 @@ const (
 )
 
 type RedBlackNode struct {
-	Data        int//节点值
-	Color       int//节点颜色
-	Parent,Left, Right *RedBlackNode//节点的父节点、左孩子、右孩子
+	Data                int           //节点值
+	Color               int           //节点颜色
+	Parent, Left, Right *RedBlackNode //节点的父节点、左孩子、右孩子
 }
+
 // 树的根节点
 var TreeRoot *RedBlackNode;
 
@@ -79,47 +80,59 @@ func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
 	return _this
 }
 
-// todo 左侧旋转 LL型旋转
-func (_this *RedBlackNode) LLRotation()*RedBlackNode {
+// todo 左侧旋转 LL型旋转 this.p,thisL.p,lr.p
+func (_this *RedBlackNode) RRRotation() *RedBlackNode {
 	var lNode *RedBlackNode
 	lNode = _this.Left
 	//右节点可以为空
 	_this.Left = lNode.Right
+	_this.Left.Parent = _this.Parent
+	_this.Parent = lNode
 	lNode.Right = _this
+	lNode.Right.Parent = _this
 
 	return lNode;
 }
 
 // todo LR型旋转
-func (_this *RedBlackNode) LRRotation()*RedBlackNode  {
+func (_this *RedBlackNode) LRRotation() *RedBlackNode {
 	_this.Right = _this.Right.LLRotation()
 	_this.RRRotation()
 	return _this
 }
 
 // todo RL型旋转
-func (_this *RedBlackNode) RLRotation()*RedBlackNode  {
+func (_this *RedBlackNode) RLRotation() *RedBlackNode {
 	_this.Left = _this.Left.LLRotation()
 	_this.RRRotation()
 	return _this
 }
 
-// todo 右侧旋转 RR型旋转
-func (_this *RedBlackNode) RRRotation() *RedBlackNode {
+// todo 向左侧旋转 LL型旋转 this.p,thisR.p,rl.p这3个parent会发生变化
+func (_this *RedBlackNode) LLRotation() *RedBlackNode {
 	var rNode *RedBlackNode
 	rNode = _this.Right
 	//根节点的左节点可以为空
 	_this.Right = rNode.Left
+	//如果this.Parent为空，则将this置为根节点
+	if _this.Parent == nil {
+		TreeRoot = _this
+	} else {
+		_this.Right.Parent = _this.Parent
+		_this.Parent = rNode
+	}
 	rNode.Left = _this
+	rNode.Left.Parent = _this
+
 	return rNode
 }
 
 // todo 前序遍历
-func (_this *RedBlackNode) PrevTraverse()  {
-	if _this==nil {
+func (_this *RedBlackNode) PrevTraverse() {
+	if _this == nil {
 		return
 	}
-	fmt.Printf("%d\t",_this.Data)
+	fmt.Printf("%d\t", _this.Data)
 	_this.Left.PrevTraverse()
 	_this.Right.PrevTraverse()
 }
