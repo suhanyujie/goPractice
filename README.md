@@ -25,6 +25,9 @@ git pull --allow-unrelated-histories
 #### 修改git提交时的config中的username
 * `vi ~/.gitconfig`; 然后在文件中直接修改即可
 
+## 参考资料
+* go的很多示例 https://www.kancloud.cn/itfanr/go-by-example/
+
 
 ## 红黑树性质：
 * 红黑树是每个节点都带有颜色属性的二叉查找树，颜色或红色或黑色。在二叉查找树强制一般要求以外，对于任何有效的红黑树我们增加了如下的额外要求:
