@@ -7,6 +7,7 @@ import (
 	"io/ioutil"
 	"os"
 	"fmt"
+	"practice/goWebsocket/implement"
 )
 
 /**
@@ -41,12 +42,24 @@ var WsHandler = func(w http.ResponseWriter, r *http.Request) {
 		err  error
 		//msgType int
 		data []byte
+		myconn *implement.Connection
 	)
-	conn, err = upgrader.Upgrade(w, r, nil)
-	if err != nil {
-		log.Println(err)
-		return
+	//conn, err = upgrader.Upgrade(w, r, nil)
+	//if err != nil {
+	//	log.Println(err)
+	//	return
+	//}
+
+	if myconn,err = implement.InitConnection(conn);err!=nil {
+		goto ERR
 	}
+
+	ERR:
+		//todo 关闭连接
+
+
+	
+	
 	// websocket conn
 	for {
 		if _, data, err = conn.ReadMessage(); err != nil {
