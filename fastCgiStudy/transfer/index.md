@@ -41,3 +41,17 @@ In the remainder of this specification the terms “FastCGI application,” “a
 * 我们将通过对比传统的 Unix 的 `CGI/1.1` 的实现来介绍 FastCGI 。 FastCGI 被设计成支持长连接，例如应用服务器。这是和传统的Unix 的 `CGI/1.1` 的实现的主要区别， `CGI/1.1` 创建一个进程，用它来响应一个请求，然后退出。
 * 一个 FastCGI 的初始化状态比一个 `CGI/1.1` 进程的初始化状态更加简洁，因为 FastCGI 进程在声明周期的开始时，没有连接任何东西。它没有按照惯例那样打开 `stdin` ， `stdout` ， `stderr` 这3个文件描述符，并且它没有接受很多来自环境变量的信息。 FastCGI 进程在初始化状态时的关键一点是监听一个 `socket` ，通过它接收来自 Web 服务的连接。
 
+### 2. Initial process state
+#### 2.1. Argument list
+
+```html
+By default the Web server creates an argument list containing a single element, the name of the application, taken to be the last component of the executable’s path name. The Web server may provide a way to specify a different application name, or a more elaborate argument list.
+
+Note that the file executed by the Web server might be an interpreter file (a text file that starts with the characters #!), in which case the application’s argument list is constructed as described in the execve manpage.
+```
+
+### 2.初始化进程状态
+#### 2.1 参数列表
+* 通过默认的Web服务器创建一个包含单一元素的参数列表，应用的名称，成为可执行的路径名称最后一部分。
+* 通过 Web 服务提供一个指向不同的应用名称的方式，或者一个更详细的参数列表
+* 通过 Web 服务记录执行文件可能是一个解释器文件（一个以标识符 `#!` 开始的文本文件），这种情况下，应用的参数列表就像之前描述的那样在可执行手册中被创建。
