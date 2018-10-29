@@ -20,6 +20,7 @@ func main() {
 func RealBubbleSort(numArr [10]int) {
 	numLength := len(numArr)
 	for i := 0; i < numLength; i++ {
+		//之所以使用（numLength - i - 1，是因为每一次比较过后，以后的每一轮都能减少一次比较（一定能产生一个最大的数字被冒泡到最后）
 		for j := 0; j < (numLength - i - 1); j++ {
 			if numArr[j] > numArr[j+1] {
 				//互换2个值
