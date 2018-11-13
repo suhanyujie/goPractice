@@ -8,8 +8,8 @@
 - [x] 选择排序 selectionSort
 - [x] 插入排序 insertionSort
 - [x] 快速排序 quickSort
-- [x] 桶排序
-- [ ] 归并排序 mergeSort
+- [x] 桶排序   bucketSort
+- [ ] 归并排序 mergeSort ing
 
 
 ## 参考资料

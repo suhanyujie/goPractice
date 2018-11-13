@@ -3,34 +3,46 @@ package main
 import "fmt"
 
 /**
-## 归并排序：
-* 归并排序（MERGE-SORT）是利用归并的思想实现的排序方法，该算法采用经典的分治（divide-and-conquer）策略（分治法将问题分(divide)成一些小的问题然后递归求解，而治(conquer)的阶段则将分的阶段得到的各答案"修补"在一起，即分而治之)。
+归并排序：
 
 
-## 参考
-* https://www.cnblogs.com/chengxiao/p/6194356.html
+
+## 参考资料
+* https://juejin.im/post/5ab4c7566fb9a028cb2d9126
  */
+
 // 入口函数
 func main() {
-	var dataArr = []int{12,7,52,58,9,21,53,68,49}
-	RecursiveSort(&dataArr)
-	fmt.Println(dataArr)
+	var arr = []int{1, 2, 3};
+	MergeSort(&arr, 0, 2)
 }
 
-//递归方式实现的归并排序
-func RecursiveSort(dataArr *[]int) []int {
-	len1 := len(*dataArr)
-	//先差UN个建一个长度等于原数组的临时数组
-	var (
-		tmpArr [len1]int
-	)
+/*
+归并排序，使用分治思想
 
 
-
-	return nil
+*/
+func MergeSort(arr *[]int, L, R int) {
+	if L == R {
+		return
+	}
+	m := (L + R) / 2
+	MergeSort(arr, L, m)
+	MergeSort(arr, m+1, R)
+	//排好序后 进行合并
+	Merge(arr, L, m+1, R)
 }
 
-func Sort() {
-
+//数据合并
+func Merge(arr *[]int, L, M, R int) {
+	var resArr = []int{}
+	for i := 0; i < M-L || i < R-M; i++ {
+		if (*arr)[L+i] < (*arr)[M+i] {
+			fmt.Println((*arr)[L+i])
+			resArr = append(resArr,(*arr)[L+i])
+		} else {
+			resArr = append(resArr,(*arr)[M+i])
+		}
+	}
+	fmt.Println(resArr)
 }
-

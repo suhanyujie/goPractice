@@ -50,6 +50,6 @@ who are u.....
 		fmt.Println(n)
 		fmt.Println(conn.LocalAddr())
 		conn.Write([]byte(body))
+		conn.Close()
 	}
-	defer conn.Close()
 }
