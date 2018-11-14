@@ -1,6 +1,8 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+)
 
 /**
 插入排序：
@@ -18,9 +20,11 @@ import "fmt"
 
 // 入口函数
 func main() {
-	var numArr = [10]int{21, 32, 19, 56, 29, 37, 16, 91, 126, 69}
+	//var numArr = [10]int{21, 32, 19, 56, 29, 37, 16, 91, 126, 69}
+	var numArr = [5]int{4,12,6,45,27}
 	numLength := len(numArr)
 	var j,compNumber int;
+	//第一个数预留出来，作为待比较的数据集合
 	for i := 1; i < numLength; i++ {
 		compNumber = numArr[i]
 		for j = i - 1; j >= 0 && compNumber < numArr[j];  {
@@ -28,6 +32,7 @@ func main() {
 			j--
 		}
 		numArr[j+1] = compNumber
+		fmt.Println(numArr);
 	}
 
 	fmt.Println(numArr)

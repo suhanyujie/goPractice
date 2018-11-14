@@ -13,7 +13,7 @@ import "fmt"
 
 // 入口函数
 func main() {
-	var arr = []int{1, 2, 3};
+	var arr = []int{5, 2, 3,12,956,45,453,19,53};
 	MergeSort(&arr, 0, 2)
 }
 
