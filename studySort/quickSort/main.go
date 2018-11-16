@@ -6,6 +6,7 @@ import (
 
 /**
 快速排序
+	感觉就是归并排序
 	快速排序基于算法中很重要的思想是 分治.
 	可以看这个哨兵移动的例子便于理解：https://blog.csdn.net/ricardo18/article/details/78867143
 
