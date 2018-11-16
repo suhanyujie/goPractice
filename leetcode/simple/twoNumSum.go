@@ -1,5 +1,10 @@
 package main
 
+/**
+## 总结
+* 感觉自己用了大量的判断才完成，没用用到该有的算法。。。
+
+ */
 type ListNode struct {
 	Val  int
 	Next *ListNode
@@ -7,32 +12,30 @@ type ListNode struct {
 
 func main() {
 	var l1 *ListNode = &ListNode{
-		2,
+		0,
 		nil,
 	}
-	l1.Next = &ListNode{
-		4,
+	//l1.Next = &ListNode{
+	//	4,
+	//	nil,
+	//}
+	//l1.Next.Next = &ListNode{
+	//	8,
+	//	nil,
+	//}
+
+	var l2 *ListNode = &ListNode{
+		7,
 		nil,
 	}
-	l1.Next = &ListNode{
+	l2.Next = &ListNode{
 		3,
 		nil,
 	}
-
-
-	var l2 *ListNode = &ListNode{
-		5,
-		nil,
-	}
-	l2.Next = &ListNode{
-		6,
-		nil,
-	}
-	l2.Next = &ListNode{
-		4,
-		nil,
-	}
-
+	//l2.Next.Next = &ListNode{
+	//	4,
+	//	nil,
+	//}
 
 	addTwoNumbers(l1, l2)
 }
@@ -46,25 +49,34 @@ func main() {
  */
 func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 	var (
-		index1, index2 int
-		val1, val2     int
-		newNode        *ListNode
-		tmpL1, tmpL2   *ListNode
-		carryNum       int
+		index1, index2                    int
+		carryNum, val1, val2              int
+		newNode, originNode, tmpL1, tmpL2 *ListNode
 	)
 	tmpL1 = l1;
 	tmpL2 = l2
 	carryNum = 0
 	for index1 = 0; ; index1++ {
-		val1 = tmpL1.Val
+		if tmpL1 != nil {
+			val1 = tmpL1.Val
+		} else {
+			val1 = 0
+		}
 		tmpL2 = l2;
 		for index2 = 0; index2 <= index1; index2++ {
-			tmpL2 = tmpL2.Next
-			if index1==index2 {
+			if index1 == index2 {
 				break;
+			} else {
+				if tmpL2 != nil {
+					tmpL2 = tmpL2.Next
+				}
 			}
 		}
-		val2 = tmpL2.Val
+		if tmpL2 != nil {
+			val2 = tmpL2.Val
+		} else {
+			val2 = 0
+		}
 		valTmp := val1 + val2 + carryNum
 		node := &ListNode{
 			valTmp,
@@ -77,15 +89,18 @@ func addTwoNumbers(l1 *ListNode, l2 *ListNode) *ListNode {
 		}
 		if newNode != nil {
 			newNode.Next = node
+			newNode = newNode.Next
 		} else {
 			newNode = node
+			originNode = newNode
 		}
-
-		tmpL1 = tmpL1.Next
-		if tmpL1 == nil {
+		if tmpL1 != nil {
+			tmpL1 = tmpL1.Next
+		}
+		if tmpL1 == nil && carryNum == 0 && (tmpL2==nil || tmpL2.Next==nil) {
 			break
 		}
 	}
 
-	return newNode
+	return originNode
 }
