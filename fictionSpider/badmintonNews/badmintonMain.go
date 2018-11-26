@@ -62,7 +62,7 @@ func GetTopNews(url string) (status interface{}, content []OneNews, returnErr er
 	//	return 30036,"", err
 	//}
 
-	return nil, topNews, errors.New("任务完成...")
+	return 1, topNews, errors.New("任务完成...")
 }
 
 /**
@@ -80,7 +80,7 @@ func GetHttpResponse(url string) ([]byte, error) {
 		return nil, errors.New(err.Error() + "-------[30021]")
 	}
 	defer response.Body.Close()
-	fmt.Println(response.StatusCode)
+	//fmt.Println(response.StatusCode)
 	if response.StatusCode >= 300 && response.StatusCode <= 500 {
 		return nil, errors.New(fmt.Sprintf("该请求的状态码为：%d\n", response.StatusCode))
 	}
