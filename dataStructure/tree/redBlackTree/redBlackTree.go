@@ -42,13 +42,17 @@ const (
 	Black
 )
 
+type DataType int;
+
 type RedBlackNode struct {
-	Data                int           //节点值
+	Data                DataType      //节点值
 	Color               int           //节点颜色
 	Parent, Left, Right *RedBlackNode //节点的父节点、左孩子、右孩子
 }
 
 // 树的根节点
+type RBRoot RedBlackNode;
+
 var TreeRoot *RedBlackNode;
 
 //创建一个新树，返回该树的根节点
@@ -58,7 +62,7 @@ func CreateTree() *RedBlackNode {
 }
 
 //新增节点
-func (_this *RedBlackNode) AddNode(val int) *RedBlackNode {
+func (_this *RedBlackNode) AddNode(val DataType) *RedBlackNode {
 	if _this == nil {
 		return &RedBlackNode{
 			val,
