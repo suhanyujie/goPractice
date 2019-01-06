@@ -32,9 +32,6 @@ type MyString = string
 
 
 
-、
-
-
 
 ### ask 1:
 怎样在打印其中元素之前，正确判断变量container的类型...

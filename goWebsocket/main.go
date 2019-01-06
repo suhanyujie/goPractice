@@ -38,7 +38,7 @@ var upgrader = websocket.Upgrader{
 
 var WsHandler = func(w http.ResponseWriter, r *http.Request) {
 	var (
-		conn *websocket.Conn
+		wsConn,conn *websocket.Conn
 		err  error
 		//msgType int
 		data []byte
@@ -49,14 +49,26 @@ var WsHandler = func(w http.ResponseWriter, r *http.Request) {
 	//	log.Println(err)
 	//	return
 	//}
+	if wsConn,err = upgrader.Upgrade(w,r,nil);err != nil {
+		return
+	}
 
-	if myconn,err = implement.InitConnection(conn);err!=nil {
+	if myconn,err = implement.InitConnection(wsConn);err!=nil {
 		goto ERR
+	}
+
+	for {
+		if data,err = myconn.ReadMessage();err != nil {
+			goto ERR
+		}
+		if err = myconn.WriteMessage(data);err != nil {
+			goto ERR
+		}
 	}
 
 	ERR:
 		//todo 关闭连接
-
+		myconn.Close()
 
 	
 	
