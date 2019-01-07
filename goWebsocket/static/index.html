@@ -25,7 +25,7 @@
         }
         $('.send-btn').click(function () {
             var message = $('.msg-input').val()
-            ws.send("发送数据:"+message)
+            ws.send(message)
         });
         $('.close-btn').click(function () {
             ws.close(1000,'client close....')

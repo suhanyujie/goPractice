@@ -4,6 +4,7 @@ import (
 	"github.com/gorilla/websocket"
 	"sync"
 	"errors"
+	"fmt"
 )
 
 type Connection struct {
@@ -36,8 +37,6 @@ func (_this *Connection) ReadMessage() (data []byte, err error) {
 	case <-_this.closeChan:
 		err = errors.New("connection is closed...\n")
 	}
-
-
 	return data, nil
 }
 
@@ -49,18 +48,6 @@ func (_this *Connection) WriteMessage(data []byte) (err error) {
 		err = errors.New("connection is closed...\n")
 	}
 	return
-}
-
-// todo 关闭连接
-func (_this Connection) Close() {
-	//Close是线程安全的
-	_this.wsConn.Close()
-	_this.mutex.Lock()
-	if !_this.isClosed {
-		close(_this.closeChan)
-		_this.isClosed = true
-	}
-	_this.mutex.Unlock()
 }
 
 // todo 读取连接中的消息
@@ -105,4 +92,17 @@ func (_this *Connection) writeLoop() {
 	}
 ERR:
 	_this.Close()
+}
+
+// todo 关闭连接
+func (_this *Connection) Close() {
+	//Close是线程安全的
+	_this.wsConn.Close()
+	_this.mutex.Lock()
+	if !_this.isClosed {
+		close(_this.closeChan)
+		_this.isClosed = true
+	}
+	_this.mutex.Unlock()
+	fmt.Println("connection is closed....\n")
 }

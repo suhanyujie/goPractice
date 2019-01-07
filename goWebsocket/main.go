@@ -8,6 +8,7 @@ import (
 	"os"
 	"fmt"
 	"practice/goWebsocket/implement"
+	"time"
 )
 
 /**
@@ -38,17 +39,12 @@ var upgrader = websocket.Upgrader{
 
 var WsHandler = func(w http.ResponseWriter, r *http.Request) {
 	var (
-		wsConn,conn *websocket.Conn
+		wsConn *websocket.Conn
 		err  error
 		//msgType int
 		data []byte
 		myconn *implement.Connection
 	)
-	//conn, err = upgrader.Upgrade(w, r, nil)
-	//if err != nil {
-	//	log.Println(err)
-	//	return
-	//}
 	if wsConn,err = upgrader.Upgrade(w,r,nil);err != nil {
 		return
 	}
@@ -56,6 +52,16 @@ var WsHandler = func(w http.ResponseWriter, r *http.Request) {
 	if myconn,err = implement.InitConnection(wsConn);err!=nil {
 		goto ERR
 	}
+
+	go func() {
+		var err error
+		for {
+			if err = wsConn.WriteMessage(websocket.TextMessage,[]byte("heartbeat\n"));err!=nil {
+				return
+			}
+			time.Sleep(2*time.Second)
+		}
+	}()
 
 	for {
 		if data,err = myconn.ReadMessage();err != nil {
@@ -70,20 +76,18 @@ var WsHandler = func(w http.ResponseWriter, r *http.Request) {
 		//todo 关闭连接
 		myconn.Close()
 
-	
-	
 	// websocket conn
-	for {
-		if _, data, err = conn.ReadMessage(); err != nil {
-			log.Println(err)
-			break
-		}
-		if err = conn.WriteMessage(websocket.TextMessage, data); err != nil {
-			log.Println(err)
-			break
-		}
-	}
-	conn.Close()
+	//for {
+	//	if _, data, err = conn.ReadMessage(); err != nil {
+	//		log.Println(err)
+	//		break
+	//	}
+	//	if err = conn.WriteMessage(websocket.TextMessage, data); err != nil {
+	//		log.Println(err)
+	//		break
+	//	}
+	//}
+	//conn.Close()
 }
 
 var HandleFunc1 = func(w http.ResponseWriter, r *http.Request) {
