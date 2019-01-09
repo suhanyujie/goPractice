@@ -11,7 +11,7 @@ var comm *tars.Communicator
 // 入口函数
 func main() {
 	comm = tars.NewCommunicator()
-	obj := "GoApp.HelloGo.Obj"
+	obj := "GoApp.HelloGo.SayHelloObj"
 	comm.SetProperty("locator", "tars.tarsregistry.QueryObj@tcp -h 172.17.0.3 -p 17890")
 	app := new(GoApp.SayHello)
 	comm.StringToProxy(obj, app)
