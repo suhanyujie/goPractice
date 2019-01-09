@@ -11,11 +11,14 @@ var comm *tars.Communicator
 // 入口函数
 func main() {
 	comm = tars.NewCommunicator()
-	obj := "TarsGo.HelloGO.SayHelloObj@tcp -h 172.17.0.3 -p 11001"
+	obj := "GoApp.HelloGo.Obj"
+	comm.SetProperty("locator", "tars.tarsregistry.QueryObj@tcp -h 172.17.0.3 -p 17890")
 	app := new(GoApp.SayHello)
 	comm.StringToProxy(obj, app)
-	var resInt *int32
-	ret, err := app.Add(12, 534, resInt)
+	var i1,i2,resInt int32
+	i1 = 12
+	i2 = 534
+	ret, err := app.Add(i1, i2, &resInt)
 	if err != nil {
 		fmt.Println(err)
 		return
