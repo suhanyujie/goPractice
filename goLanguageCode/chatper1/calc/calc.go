@@ -19,7 +19,7 @@ func main() {
 		return
 	}
 	switch args[1] {
-	case "add":
+	case "add"://加法
 		if len(args) != 4 {
 			fmt.Println("Usage: calc add <int1> <int2>")
 			return
@@ -32,5 +32,19 @@ func main() {
 		}
 		ret := simplemath.Add(v1,v2);
 		fmt.Printf("%d + %d = %d\n", v1,v2,ret)
+
+	case "mul"://乘法
+		if len(args) != 4 {
+			fmt.Println("Usage: calc mul <int1> <int2>")
+			return
+		}
+		v1, err1 := strconv.Atoi(args[2])
+		v2, err2 := strconv.Atoi(args[3])
+		if err1 != nil || err2 != nil {
+			fmt.Println("Usage: calc mul <int1> <int2>")
+			return
+		}
+		ret := simplemath.Multiple(v1,v2);
+		fmt.Printf("%d * %d = %d\n", v1,v2,ret)
 	}
 }
