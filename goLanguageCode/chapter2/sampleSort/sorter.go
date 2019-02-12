@@ -8,7 +8,7 @@ import (
 	"bufio"
 	"io"
 	"strconv"
-	"practice/goLanguageCode/chapter2/sampleSort/algorithms/bubble"
+	"practice/goLanguageCode/chapter2/sampleSort/algorithms/qsort"
 )
 
 var infile *string = flag.String("i", "infile", "File contains value for sorting")
@@ -17,18 +17,27 @@ var algorithm *string = flag.String("a", "qsort", "Sort algorithm")
 
 func main() {
 	flag.Parse()
+	*infile = "/www/2017/go/src/practice/goLanguageCode/chapter2/sampleSort/data/inputData.dat"
 
-	if infile != nil {
-		fmt.Println("infile = ", *infile, "outfile = ", *outfile, "algorithm = ", *algorithm)
-	}
+	//if infile != nil {
+	//	fmt.Println("infile = ", *infile, "outfile = ", *outfile, "algorithm = ", *algorithm)
+	//}
+
 	values, err := readValue(*infile)
 	if err != nil {
 		log.Println(err)
 	}
-	err = bubble.BubbleSort(values)
-	if err !=nil {
+
+	//快速排序
+	err = qsort.QuickSort(values)
+	if err != nil {
 		log.Println(err)
 	}
+	//冒泡
+	//err = bubble.BubbleSort(values)
+	//if err !=nil {
+	//	log.Println(err)
+	//}
 
 	fmt.Println(values)
 }
