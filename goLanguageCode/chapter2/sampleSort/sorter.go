@@ -28,12 +28,12 @@ func main() {
 		log.Println(err)
 	}
 
-	//快速排序
+	//1.快速排序
 	err = qsort.QuickSort(values)
 	if err != nil {
 		log.Println(err)
 	}
-	//冒泡
+	//2.冒泡
 	//err = bubble.BubbleSort(values)
 	//if err !=nil {
 	//	log.Println(err)

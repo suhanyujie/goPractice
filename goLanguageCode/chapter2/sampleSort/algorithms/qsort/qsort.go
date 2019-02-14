@@ -27,6 +27,13 @@ func quikSort(values []int, left, right int) {
 			p = i
 		}
 	}
+	values[p] = temp
+	if p-left > 1 {
+		quikSort(values, left, p-1)
+	}
+	if right-p > 1 {
+		quikSort(values, p+1, right)
+	}
 }
 
 /**
