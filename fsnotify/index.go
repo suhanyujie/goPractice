@@ -20,9 +20,21 @@ func main() {
 				if !ok {
 					return
 				}
-				log.Println("event:", event)
+				//log.Println("event:", event)
 				if event.Op&fsnotify.Write == fsnotify.Write {
-					log.Println("modified file:", event.Name)
+					log.Println("Write file:", event.Name)
+				}
+				if event.Op&fsnotify.Create == fsnotify.Create {
+					log.Println("Create file:", event.Name)
+				}
+				if event.Op&fsnotify.Remove == fsnotify.Remove {
+					log.Println("Remove file:", event.Name)
+				}
+				if event.Op&fsnotify.Rename == fsnotify.Rename {
+					log.Println("Rename file:", event.Name)
+				}
+				if event.Op&fsnotify.Chmod == fsnotify.Chmod {
+					log.Println("Chmod file:", event.Name)
 				}
 			case wErr := <-watcher.Errors:
 				log.Println("error:", wErr)
