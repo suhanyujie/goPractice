@@ -18,6 +18,7 @@ var algorithm *string = flag.String("a", "qsort", "Sort algorithm")
 func main() {
 	flag.Parse()
 	*infile = "/www/2017/go/src/practice/goLanguageCode/chapter2/sampleSort/data/inputData.dat"
+	*outfile = "/www/2017/go/src/practice/goLanguageCode/chapter2/sampleSort/data/outputData.dat"
 
 	//if infile != nil {
 	//	fmt.Println("infile = ", *infile, "outfile = ", *outfile, "algorithm = ", *algorithm)
@@ -40,6 +41,11 @@ func main() {
 	//}
 
 	fmt.Println(values)
+	//写入文件
+	err = writeValues(values, *outfile)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 //从文件中读取数据
@@ -77,14 +83,19 @@ func readValue(infile string) (values []int, err error) {
 
 //将处理后的数据写入到文件中
 func writeValues(values []int, outfile string) (err error) {
-	file, err := os.Open(outfile)
+	file, err := os.Create(outfile)
 	if err != nil {
 		return
 	}
 	defer file.Close()
 	for _, value := range values {
 		str := strconv.Itoa(value)
-		file.WriteString(str)
+		num,err := file.WriteString(str+"\n")
+		if err !=nil {
+			fmt.Println(err)
+		} else {
+			fmt.Println("写入的字节数：",num)
+		}
 	}
 	return nil
 }
