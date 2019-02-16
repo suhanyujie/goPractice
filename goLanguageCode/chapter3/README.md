@@ -32,3 +32,4 @@ var file3 IWriter = new(File)
 var file4 ICloser = new(File)
 ```
 
+* Go语言的非侵入式接口，看似只是做了很小的文法调整，实则影响深远。
