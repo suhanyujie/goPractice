@@ -6,4 +6,7 @@
 * 支持mp3 wav格式，也能支持更多的音乐类型
 * 退出程序
 
-
+## 单元测试
+* 在library文件夹上右键>Run>go test library
+* 或者进入library所在目录，然后运行：`go test library`
+* 简单的单元测试教程可以参考 https://blog.csdn.net/hatlonely/article/details/79222850
