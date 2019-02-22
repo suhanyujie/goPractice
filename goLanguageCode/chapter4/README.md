@@ -18,4 +18,41 @@
 * 它可以起到限定的作用
 * 例如，c语言中函数声明时，针对指针形参加上const限定，这样函数体中就不允许修改对应的变量
 * 单向通道的作用也和这个类似
+* 它的定义如下：
+>ch5 := <-chan int(ch4) // ch5就是一个单向的读取channel<br>
+ ch6 := chan<- int(ch4) // ch6 是一个单向的写入channel
+ 
+### 关闭channel
+* 直接使用close函数
+* 如果重复关闭一个通道，会产生panic
+* 因此，读取的时候，可以使用多重返回值
+
+```
+x,ok := <-ch
+```
+
+* 如果ok返回false，则表示ch已经关闭
+
+### 设置CPU核心数实现并行计算
+* `runtime.GOMAXPROCS(3)`
+
+### 同步锁
+* go语言包中提供了sync包，包含2中锁类型：
+#### sync.Mutex
+* 当一个goroutine获得了Mutex后，其他goroutine就只能乖乖等到这个goroutine释放该Mutex
+
+####sync.RWMutex
+* 单写多读模型。阻止写，但不阻止读
+
+### 原子性 全局唯一性操作
+* 可以利用go提供的`sync.Once`来防止并发问题
+* 除此之外，可以利用sync提供的`atomic`包
+
+
+
+
+
+
+
+
 
