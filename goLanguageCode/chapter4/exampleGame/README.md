@@ -28,3 +28,18 @@
 * goroutine之间的通信
 * 共享资源访问控制
 
+## 小技巧
+```
+int,err:=strconv.Atoi(string)
+ #string到int64
+ int64, err := strconv.ParseInt(string, 10, 64)
+ #int到string
+ string:=strconv.Itoa(int)
+ #int64到string
+ string:=strconv.FormatInt(int64,10)
+ --------------------- 
+ 作者：三少GG 
+ 来源：CSDN 
+ 原文：https://blog.csdn.net/pkueecser/article/details/50433460 
+ 版权声明：本文为博主原创文章，转载请附上博文链接！
+```
