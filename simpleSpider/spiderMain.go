@@ -6,6 +6,7 @@ import (
 	"log"
 	"encoding/base64"
 	"bufio"
+	"fmt"
 )
 
 func main() {
@@ -38,6 +39,8 @@ func Handle(conn net.Conn,server spiderServer.NovelServer) {
 	var bufReader = bufio.NewReader(conn)
 	for {
 		dataStr,err = bufReader.ReadString('\n')
+		rAddr := conn.RemoteAddr()
+		fmt.Printf("Receive from client %s : %s", rAddr,dataStr)
 		//bNum,err = (conn).Read(data)
 		if err != nil {
 			log.Fatal("tcp server Accept error:", err)
