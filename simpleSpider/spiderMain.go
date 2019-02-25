@@ -54,7 +54,6 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	dataStr := r.FormValue("dataStr")
 	//解析数据，放入spider server处理
 	server.HandleReceive(dataStr, areaRule, itemRule)
-
 	select {
 	case resData := <-server.DataChan:
 		_, err := w.Write([]byte(resData.Text))
