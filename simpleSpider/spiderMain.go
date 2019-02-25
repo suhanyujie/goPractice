@@ -23,7 +23,6 @@ func main() {
 		if err != nil {
 			log.Fatal("tcp server Accept error:", err)
 		}
-
 		go Handle(conn, *server)
 	}
 }
@@ -31,24 +30,29 @@ func main() {
 func Handle(conn net.Conn,server spiderServer.NovelServer) {
 	var (
 		//bNum int
-		err error
 		dataStr string
 	)
 	defer (conn).Close()
 	//var data = make([]byte, 1024)
 	var bufReader = bufio.NewReader(conn)
 	for {
-		dataStr,err = bufReader.ReadString('\n')
+		tmpStr,err := bufReader.ReadString('\n')
 		rAddr := conn.RemoteAddr()
-		fmt.Printf("Receive from client %s : %s", rAddr,dataStr)
+		fmt.Printf("Receive from client %s : %s \n", rAddr,dataStr)
 		//bNum,err = (conn).Read(data)
 		if err != nil {
-			log.Fatal("tcp server Accept error:", err)
+			log.Println("tcp server Accept error:", err)
+			break
 		}
 		//if bNum < 1 {
 		//	fmt.Println("request data is null.")
 		//	return
 		//}
+		dataStr = dataStr + tmpStr
+		if tmpStr == "quit" {
+			break
+		}
+
 	}
 	//解析数据，放入spider server处理
 	server.HandleReceive(dataStr, getAreaRule(), getItemRule())
