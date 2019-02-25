@@ -26,8 +26,8 @@ type NovelServer struct {
 }
 
 func (server *NovelServer) HandleReceive(text, rule string, textRule []string) {
-	text = strings.TrimSpace(text)
 	fmt.Println(text)
+	text = strings.TrimSpace(text)
 	textReader := strings.NewReader(text)
 	doc, err := goquery.NewDocumentFromReader(textReader)
 	if err != nil {
@@ -59,6 +59,7 @@ func (server *NovelServer) HandleReceive(text, rule string, textRule []string) {
 					linkData.Link,_ = s2.Attr("href")
 				}
 				server.DataChan <- *linkData
+				fmt.Println(linkData)
 			})
 		}
 	})

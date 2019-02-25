@@ -54,6 +54,7 @@ func Handle(conn net.Conn,server spiderServer.NovelServer) {
 		}
 
 	}
+	fmt.Println(dataStr)
 	//解析数据，放入spider server处理
 	server.HandleReceive(dataStr, getAreaRule(), getItemRule())
 }
