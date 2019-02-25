@@ -7,6 +7,12 @@
 - [ ] 排序算法 [点此前往](/studySort)  进行中
 - [ ] fastcgi学习 [点此前往](/fastCgiStudy)  进行中
 
+## install
+*　`git clone https://github.com/suhanyujie/goPractice.git practice`
+
+## build 
+* 在仓库根目录下，`go build -o a.exe **/xxx.go ...`
+* 执行就可以直接在仓库根目录下，`./a.exe param ...`
 
 ## 遇到的问题
 
