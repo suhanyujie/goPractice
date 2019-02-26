@@ -28,11 +28,6 @@ func main() {
 func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	//设定等待解析结果的超时时间
 	var timeout int64 = 1
-	afterTimer := make(chan int)
-	go func(ch chan int, t int64) {
-		time.Sleep(time.Duration(t) * time.Second)
-		ch <- 1
-	}(afterTimer, timeout)
 	defer r.Body.Close()
 	if r.Method != "POST" {
 		http.Error(w, "http method not allow.", http.StatusMethodNotAllowed)
@@ -58,7 +53,7 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	case resData := <-server.DataChan:
 		_, err := w.Write([]byte(resData.Text))
 		checkError(err)
-	case <-afterTimer:
+	case <-time.NewTicker(time.Duration(timeout) * time.Second).C:
 		panic(errors.New("wait parsed result had timeout."))
 	}
 }
