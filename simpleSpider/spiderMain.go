@@ -25,6 +25,7 @@ func main() {
 	}
 }
 
+//解析请求参数
 func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	//设定等待解析结果的超时时间
 	var timeout int64 = 1
@@ -39,11 +40,12 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	itemRuleStr := r.FormValue("itemRule")
 	fmt.Println(itemRuleStr)
-	itemRule := []string{}
+	itemRule := map[string]string{}
 	if len(itemRuleStr) <= 0 {
 		itemRule = getItemRule()
 	} else {
-		err := json.Unmarshal([]byte(itemRuleStr), itemRule)
+		err := json.Unmarshal([]byte(itemRuleStr), &itemRule)
+		fmt.Println(itemRule)
 		checkError(err)
 	}
 	dataStr := r.FormValue("dataStr")
@@ -58,6 +60,7 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+//异常发生时的处理
 func safeHandler(fn http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
 		defer func() {
@@ -87,10 +90,6 @@ func Handle(conn net.Conn, server spiderServer.NovelServer) {
 			log.Println("tcp server Accept error:", err)
 			break
 		}
-		//if bNum < 1 {
-		//	fmt.Println("request data is null.")
-		//	return
-		//}
 		dataStr = dataStr + tmpStr
 		if tmpStr == "quit" {
 			break
@@ -108,9 +107,9 @@ func getAreaRule() string {
 	return areaRule
 }
 
-func getItemRule() []string {
-	var ruleArr = []string{
-		"dd a",
+func getItemRule() map[string]string {
+	var ruleArr = map[string]string{
+		"0": "dd a",
 	}
 	for index, con := range ruleArr {
 		newRule := base64.StdEncoding.EncodeToString([]byte(con))
