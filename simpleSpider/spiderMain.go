@@ -5,10 +5,12 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"errors"
+	"flag"
 	"fmt"
 	"log"
 	"net"
 	"net/http"
+	"os"
 	"practice/simpleSpider/spiderServer"
 	"time"
 )
@@ -16,10 +18,23 @@ import (
 var server = spiderServer.NewNovelServer()
 
 func main() {
+	var port = flag.String("port", "8001", "Parse service serve port.such as 8001")
+	var debug = flag.Bool("debug", false, "Value 'true' is debug model")
+	var help = flag.String("help", "", "Parse service helper")
+	if (*help) == "" {
+		fmt.Fprintf(os.Stdout,
+			"Usage: \n %s -port=8001 -debug=false \n", os.Args[0])
+		os.Exit(0)
+	}
+	if (*debug) == true {
+		fmt.Println("debug model...")
+	}
+	flag.Parse()
 	//启动一个http服务器，接收请求的数据
 	//将数据传递给server
 	http.HandleFunc("/", safeHandler(ParseHandler))
-	err := http.ListenAndServe(":8001", nil)
+	fmt.Println("parse service will run in port:", *port)
+	err := http.ListenAndServe(":"+(*port), nil)
 	if err != nil {
 		log.Println("http server listen error:", err)
 	}
