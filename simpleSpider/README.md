@@ -8,3 +8,5 @@
 * 在仓库根目录下，`go build -o a.exe simpleSpider/spiderMain.go`
 * 执行`./a.exe`即可启动服务
 
+## benchamark
+* `go test testMain/main_test.go -bench=. -benchtime=3s`

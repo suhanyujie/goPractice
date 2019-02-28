@@ -2,7 +2,6 @@ package main
 
 import (
 	"bufio"
-	"encoding/base64"
 	"encoding/json"
 	"errors"
 	"flag"
@@ -11,6 +10,7 @@ import (
 	"net"
 	"net/http"
 	"os"
+	"practice/simpleSpider/rule"
 	"practice/simpleSpider/spiderServer"
 	"time"
 )
@@ -20,16 +20,15 @@ var server = spiderServer.NewNovelServer()
 func main() {
 	var port = flag.String("port", "8001", "Parse service serve port.such as 8001")
 	var debug = flag.Bool("debug", false, "Value 'true' is debug model")
-	var help = flag.String("help", "", "Parse service helper")
-	if (*help) == "" {
-		fmt.Fprintf(os.Stdout,
-			"Usage: \n %s -port=8001 -debug=false \n", os.Args[0])
-		os.Exit(0)
+	// 如果是cli参数中，参数为`-help`  则此时其值默认为true
+	var help = flag.Bool("help", false, "Parse service helper")
+	flag.Parse()
+	if *help {
+		Usage()
 	}
 	if (*debug) == true {
 		fmt.Println("debug model...")
 	}
-	flag.Parse()
 	//启动一个http服务器，接收请求的数据
 	//将数据传递给server
 	http.HandleFunc("/", safeHandler(ParseHandler))
@@ -38,6 +37,12 @@ func main() {
 	if err != nil {
 		log.Println("http server listen error:", err)
 	}
+}
+
+func Usage() {
+	fmt.Fprintf(os.Stdout,
+		"Usage: \n %s -port=8001 -debug=false \n", os.Args[0])
+	os.Exit(0)
 }
 
 //解析请求参数
@@ -51,13 +56,13 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	areaRule := r.FormValue("areaRule")
 	if len(areaRule) < 1 {
-		areaRule = getAreaRule()
+		areaRule = rule.GetAreaRule()
 	}
 	itemRuleStr := r.FormValue("itemRule")
 	fmt.Println(itemRuleStr)
 	itemRule := map[string]string{}
 	if len(itemRuleStr) <= 0 {
-		itemRule = getItemRule()
+		itemRule = rule.GetItemRule()
 	} else {
 		err := json.Unmarshal([]byte(itemRuleStr), &itemRule)
 		fmt.Println(itemRule)
@@ -113,24 +118,7 @@ func Handle(conn net.Conn, server spiderServer.NovelServer) {
 	}
 	fmt.Println(dataStr)
 	//解析数据，放入spider server处理
-	server.HandleReceive(dataStr, getAreaRule(), getItemRule())
-}
-
-func getAreaRule() string {
-	areaRule := "#list"
-	areaRule = base64.StdEncoding.EncodeToString([]byte(areaRule))
-	return areaRule
-}
-
-func getItemRule() map[string]string {
-	var ruleArr = map[string]string{
-		"0": "dd a",
-	}
-	for index, con := range ruleArr {
-		newRule := base64.StdEncoding.EncodeToString([]byte(con))
-		ruleArr[index] = string(newRule)
-	}
-	return ruleArr
+	server.HandleReceive(dataStr, rule.GetAreaRule(), rule.GetItemRule())
 }
 
 func checkError(err error) {

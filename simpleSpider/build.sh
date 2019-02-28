@@ -1,3 +1,3 @@
 #!/bin/sh
 #
-go build -o parseServer spiderMain.go
+go build -o parseServer main.go
