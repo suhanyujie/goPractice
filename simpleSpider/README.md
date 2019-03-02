@@ -10,3 +10,6 @@
 
 ## benchamark
 * `go test testMain/main_test.go -bench=. -benchtime=3s`
+
+## 调试工具
+* 可以借助调试工具delve进行调试 https://www.cnblogs.com/li-peng/p/8522592.html

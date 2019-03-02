@@ -15,6 +15,12 @@ import (
 	"time"
 )
 
+type Response struct {
+	Status int         `json:"status"`
+	Data   interface{} `json:"data"`
+	Msg    string      `json:"msg"`
+}
+
 var server = spiderServer.NewNovelServer()
 
 func main() {
@@ -59,13 +65,11 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 		areaRule = rule.GetAreaRule()
 	}
 	itemRuleStr := r.FormValue("itemRule")
-	fmt.Println(itemRuleStr)
 	itemRule := map[string]string{}
 	if len(itemRuleStr) <= 0 {
 		itemRule = rule.GetItemRule()
 	} else {
 		err := json.Unmarshal([]byte(itemRuleStr), &itemRule)
-		fmt.Println(itemRule)
 		checkError(err)
 	}
 	dataStr := r.FormValue("dataStr")
@@ -73,10 +77,19 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	server.HandleReceive(dataStr, areaRule, itemRule)
 	select {
 	case resData := <-server.DataChan:
-		_, err := w.Write([]byte(resData.Text))
+		response := &Response{
+			200,
+			resData,
+			"ok",
+		}
+		res, err := json.Marshal(response)
+		checkError(err)
+		_, err = w.Write(res)
 		checkError(err)
 	case <-time.NewTicker(time.Duration(timeout) * time.Second).C:
-		panic(errors.New("wait parsed result had timeout."))
+		msg := "wait parsed result had timeout."
+		log.Println(msg)
+		panic(errors.New(msg))
 	}
 }
 
@@ -86,7 +99,7 @@ func safeHandler(fn http.HandlerFunc) http.HandlerFunc {
 		defer func() {
 			if err, ok := recover().(error); ok {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
-				log.Printf("WARN:panic in %v-%v", fn, err)
+				log.Printf("WARN:panic in %#v-%v", fn, err)
 			}
 		}()
 		fn(w, r)

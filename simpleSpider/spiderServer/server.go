@@ -12,7 +12,8 @@ type InputData struct {
 }
 
 type LinkData struct {
-	Text, Link string
+	Text string `json:"text"`
+	Link string `json:"link"`
 }
 
 type SpiderServer interface {
@@ -20,15 +21,16 @@ type SpiderServer interface {
 }
 
 type NovelServer struct {
-	DataChan chan LinkData
+	DataChan chan []LinkData
 }
 
 func (server *NovelServer) HandleReceive(text, rule string, textRule map[string]string) {
 	var (
-		itemRuleStr, oneRule string
-		aSelection           *goquery.Selection
-		needLink             bool
-		linkData             = &LinkData{"", ""}
+		oneRule     string
+		aSelection  *goquery.Selection
+		needLink    bool
+		linkData    = &LinkData{"", ""}
+		linkDataArr = make([]LinkData, 0)
 	)
 	text = strings.TrimSpace(text)
 	textReader := strings.NewReader(text)
@@ -36,12 +38,6 @@ func (server *NovelServer) HandleReceive(text, rule string, textRule map[string]
 	if err != nil {
 		log.Fatal(err)
 	}
-	ruleByte := rule
-	if err != nil {
-		log.Println("spider rule decode 异常:", err)
-		return
-	}
-	rule = string(ruleByte)
 	//fmt.Println("=================解析结果如下：=========================================")
 	doc.Find(rule).Each(func(i int, selection *goquery.Selection) {
 		for _, oneRule = range textRule {
@@ -50,23 +46,24 @@ func (server *NovelServer) HandleReceive(text, rule string, textRule map[string]
 				log.Println("spider itemRule decode 异常:", err)
 				return
 			}
-			itemRuleStr = string(oneRule)
 			aSelection = selection.Find(oneRule)
 			//判断是否a链接
-			needLink = strings.HasSuffix(itemRuleStr, "a")
+			needLink = strings.HasSuffix(oneRule, "a")
 			aSelection.Each(func(i int, s2 *goquery.Selection) {
 				linkData.Text = s2.Text()
 				if needLink {
 					linkData.Link, _ = s2.Attr("href")
 				}
-				server.DataChan <- *linkData
+				linkDataArr = append(linkDataArr, *linkData)
+
 				//fmt.Println(linkData.Text)
 			})
 		}
 	})
+	server.DataChan <- linkDataArr
 }
 
 func NewNovelServer() *NovelServer {
-	ch1 := make(chan LinkData, 200)
+	ch1 := make(chan []LinkData, 10)
 	return &NovelServer{ch1}
 }
