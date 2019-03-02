@@ -75,22 +75,25 @@ func ParseHandler(w http.ResponseWriter, r *http.Request) {
 	dataStr := r.FormValue("dataStr")
 	//解析数据，放入spider server处理
 	server.HandleReceive(dataStr, areaRule, itemRule)
+	response := &Response{
+		200,
+		nil,
+		"ok",
+	}
 	select {
 	case resData := <-server.DataChan:
-		response := &Response{
-			200,
-			resData,
-			"ok",
-		}
-		res, err := json.Marshal(response)
-		checkError(err)
-		_, err = w.Write(res)
-		checkError(err)
+		response.Data = resData
 	case <-time.NewTicker(time.Duration(timeout) * time.Second).C:
 		msg := "wait parsed result had timeout."
+		response.Status = 501
+		response.Msg = msg
 		log.Println(msg)
 		panic(errors.New(msg))
 	}
+	res, err := json.Marshal(response)
+	checkError(err)
+	_, err = w.Write(res)
+	checkError(err)
 }
 
 //异常发生时的处理
