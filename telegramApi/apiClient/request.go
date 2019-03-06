@@ -3,9 +3,20 @@ package apiClient
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
-	"practice/telegramApi/config"
+	"practice/telegramApi/common"
 )
+
+var configData = common.Config{}
+
+func init() {
+	tmpConfigData, err := common.ParseConfig("/home/www/go/src/practice/telegramApi/config/config.json")
+	if err != nil {
+		common.CheckError(err, 2)
+	}
+	configData = tmpConfigData
+}
 
 func GetRequest(method, apiName string, params map[string]string) (*http.Request, error) {
 	body, err := json.Marshal(params)
@@ -14,6 +25,7 @@ func GetRequest(method, apiName string, params map[string]string) (*http.Request
 	}
 	bodyReader := bytes.NewReader(body)
 	url := getApiUrl(apiName)
+	fmt.Println(url)
 	request, err := http.NewRequest(method, url, bodyReader)
 	if err != nil {
 		return nil, err
@@ -24,5 +36,5 @@ func GetRequest(method, apiName string, params map[string]string) (*http.Request
 }
 
 func getApiUrl(apiName string) string {
-	return config.ApiUrl + "/bot" + config.ApiToken + "/" + apiName
+	return configData.BaseUrl + "/bot" + configData.ApiToken + "/" + apiName
 }
