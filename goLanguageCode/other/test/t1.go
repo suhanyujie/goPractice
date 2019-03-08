@@ -15,5 +15,4 @@ type User struct {
 func main() {
 	var1 := &User{Human{"head", "hand"}, "samuel"}
 	fmt.Printf("%V", var1)
-
 }
