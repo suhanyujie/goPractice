@@ -11,7 +11,7 @@ import (
 var configData = common.Config{}
 
 func init() {
-	tmpConfigData, err := common.ParseConfig("/home/www/go/src/practice/telegramApi/config/config.json")
+	tmpConfigData, err := common.ParseConfig("config.json")
 	if err != nil {
 		common.CheckError(err, 2)
 	}

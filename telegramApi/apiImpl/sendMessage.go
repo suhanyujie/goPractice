@@ -8,10 +8,11 @@ import (
 	"practice/telegramApi/common"
 )
 
-func SendMessage() string {
+func SendMessage(msgContent string) string {
 	params := map[string]string{
-		"chat_id": "@testForBotChannel1", //
-		"text":    "hello world",
+		"chat_id":    "@testForBotChannel1", //
+		"parse_mode": "Markdown",
+		"text":       msgContent,
 	}
 	req, err := apiClient.GetRequest("POST", "sendMessage", params)
 	common.CheckError(err, 2)
