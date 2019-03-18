@@ -11,8 +11,8 @@ import (
 func SendMessage(msgContent string) string {
 	params := map[string]string{
 		"chat_id":    "@testForBotChannel1", //
-		"parse_mode": "Markdown",
 		"text":       msgContent,
+		"parse_mode": "Markdown",
 	}
 	req, err := apiClient.GetRequest("POST", "sendMessage", params)
 	common.CheckError(err, 2)
