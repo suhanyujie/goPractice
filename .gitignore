@@ -6,7 +6,7 @@ goLanguageCode/chapter2/sampleSort/a.exe
 goLanguageCode/chapter6/exampleEcho/a.exe
 /calc
 /*/*.exe
-simpleSpider/parseServer
+htmlParserServer/parseServer
 telegramApi/config/config.json
 telegramApi/config.json
 vendor
