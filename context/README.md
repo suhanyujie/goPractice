@@ -312,6 +312,8 @@ func watch2(ctx context.Context, name string) {
 >* 4.Context的Value相关方法应该传递必须的数据，不要什么数据都使用这个传递
 >* 5.Context是线程安全的，可以放心的在多个goroutine中传递
 
+* 文中提到的代码可以在 [GitHub](https://github.com/suhanyujie/practice/tree/master/context) 中找到。
+
 ## 参考资料
 * Go语言实战笔记（二十）| Go Context https://www.flysnow.org/2017/05/12/go-in-action-go-context.html
 * 关于 Context 的另一篇文章 [https://medium.com/@cep21/how-to-correctly-use-context-context-in-go-1-7-8f2c0fafdf39](https://medium.com/@cep21/how-to-correctly-use-context-context-in-go-1-7-8f2c0fafdf39)
