@@ -306,11 +306,11 @@ func watch2(ctx context.Context, name string) {
 
 ### Context 使用原则
 * 以下是飞雪无情博客中提到的一些使用原则，为了能够更好、更准确的使用 Context，我们最好遵循：
->1.不要把Context放在结构体中，要以参数的方式传递
->2.以Context作为参数的函数方法，应该把Context作为第一个参数，放在第一位。
->3.给一个函数方法传递Context的时候，不要传递nil，如果不知道传递什么，就使用context.TODO
->4.Context的Value相关方法应该传递必须的数据，不要什么数据都使用这个传递
->5.Context是线程安全的，可以放心的在多个goroutine中传递
+>* 1.不要把Context放在结构体中，要以参数的方式传递
+>* 2.以Context作为参数的函数方法，应该把Context作为第一个参数，放在第一位。
+>* 3.给一个函数方法传递Context的时候，不要传递nil，如果不知道传递什么，就使用context.TODO
+>* 4.Context的Value相关方法应该传递必须的数据，不要什么数据都使用这个传递
+>* 5.Context是线程安全的，可以放心的在多个goroutine中传递
 
 ## 参考资料
 * Go语言实战笔记（二十）| Go Context https://www.flysnow.org/2017/05/12/go-in-action-go-context.html
