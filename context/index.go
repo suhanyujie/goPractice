@@ -15,7 +15,9 @@ func main() {
 	// Context 控制多个 goroutine
 	// contextPart4()
 	// 使用 WithValue
-	contextPart5()
+	// contextPart5()
+	// 带有超时的Context
+	contextPart6ForDeadline()
 }
 
 // 使用 sync 包中的 WaitGroup 实现协程的并发控制
@@ -114,7 +116,7 @@ func contextPart5() {
 	time.Sleep(10 * time.Second)
 	log.Println("可以通知任务停止了...")
 	cancel()
-	time.Sleep(5 * time.Second)
+	time.Sleep(6 * time.Second)
 }
 
 func watch2(ctx context.Context, name string) {
@@ -127,6 +129,39 @@ func watch2(ctx context.Context, name string) {
 			return
 		default:
 			log.Println(name + " goroutine 继续处理任务中...")
+			time.Sleep(2 * time.Second)
+		}
+	}
+}
+
+// WithDeadline
+func contextPart6ForDeadline() {
+	ctx, cancel := context.WithCancel(context.Background())
+	go watch6(ctx)
+	time.Sleep(15 * time.Second)
+	cancel()
+}
+
+func watch6(ctx context.Context) {
+	log.Println("this is watch6 ...")
+	dTimeStamp := time.Now().Unix() + 4
+	dTime := time.Unix(dTimeStamp, 0)
+	ctx2, _ := context.WithDeadline(ctx, dTime)
+	log.Println("开启协程，并在 4s 后到达截止时间")
+	go watch6_1(ctx2)
+	time.Sleep(6 * time.Second)
+	// 不进行主动取消 context
+	// cancel()
+}
+
+func watch6_1(ctx context.Context) {
+	for {
+		select {
+		case <-ctx.Done():
+			log.Println(" 任务即将要退出了...是主动取消还是截止时间已到？")
+			return
+		default:
+			log.Println(" goroutine 继续处理任务中...")
 			time.Sleep(2 * time.Second)
 		}
 	}
