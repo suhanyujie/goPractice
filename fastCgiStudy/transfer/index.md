@@ -1,5 +1,6 @@
 >* fast-cgi 规范翻译
 >* 原文链接 https://fast-cgi.github.io/spec
+>* 译者：[suhanyujie](https://www.github.com/suhanyujie)
 
 ## 章节目录
 - [x] 1. Introduction
