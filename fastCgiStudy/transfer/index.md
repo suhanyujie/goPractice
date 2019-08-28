@@ -3,13 +3,37 @@
 
 ## 章节目录
 - [x] 1. Introduction
-- [ ] 2. Initial process state
+- [x] 2. Initial process state
+    - [x] 2.1. Argument list
+    - [ ] 2.2. File descriptors
+    - [ ] 2.3. Environment variables
+    - [ ] 2.4. Other state
 - [ ] 3. Protocol basics
+    - [ ] 3.1. Notation
+    - [ ] 3.2. Accepting transport connections
+    - [ ] 3.3. Records
+    - [ ] 3.4. Name-Value pairs
+    - [ ] 3.5. Closing transport connections
 - [ ] 4. Management record types
+    - [ ] 4.1. FCGI_GET_VALUES, FCGI_GET_VALUES_RESULT
+    - [ ] 4.2. FCGI_UNKNOWN_TYPE
 - [ ] 5. Application record types
+    - [ ] 5.1. FCGI_BEGIN_REQUEST
+    - [ ] 5.2. Name-Value pair streams: FCGI_PARAMS
+    - [ ] 5.3. Byte streams: FCGI_STDIN, FCGI_DATA, FCGI_STDOUT, FCGI_STDERR
+    - [ ] 5.4. FCGI_ABORT_REQUEST
+    - [ ] 5.5. FCGI_END_REQUEST
 - [ ] 6. Roles
+    - [ ] 6.1. Role protocols
+    - [ ] 6.2. Responder
+    - [ ] 6.3. Authorizer
+    - [ ] 6.4. Filter
 - [ ] 7. Errors
 - [ ] 8. Types and constants
+- [ ] 9. References
+- [ ] A. Table: properties of the record types
+- [ ] B. Typical protocol message flow
+
 
 >* 译文内容
 
